@@ -1,10 +1,12 @@
 import express from 'express';
 import path from 'path'; //a node module
 import mongoose from 'mongoose';
-import auth from './routes/auth';
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 import Promise from 'bluebird';
+//routes
+import auth from './routes/auth';
+import users from "./routes/users";
 
 dotenv.config();
 const app = express();
@@ -14,6 +16,7 @@ mongoose.connect(process.env.MONGODB_URL);
 
 
 app.use('/api/auth', auth);
+app.use('/api/users', users);
 
 app.post("/api/auth", (req, res) => {
   res.status(400).json({errors: {global: "Invalid credentials"}});
